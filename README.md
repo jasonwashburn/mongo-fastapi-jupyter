@@ -2,13 +2,14 @@
 
 1. clone repo
 2. cd into folder
-3. run `docker compose build`
-4. run `docker compose up`
-5. click on (or paste into your browser) the link provided in the jupyter lab log output from the terminal window to 
+3. copy `example.env` file to `.env` then edit environment variable values for mongo root username and password
+4. run `docker compose build`
+5. run `docker compose up`
+6. click on (or paste into your browser) the link provided in the jupyter lab log output from the terminal window to 
 access **Jupyter Lab** on [http://localhost:8888/](http://localhost:8888/)
-6. **mongodb** is not accessible externally, but can be accessed by the fastAPI or Jupyter containers at the
+7. **mongodb** is not accessible externally, but can be accessed by the fastAPI or Jupyter containers at the
 URI `mongodb://useradmin:boop@mongodb`
-7. navigate to [http://localhost:8080/](http://localhost:8080/) to access **fastAPI**
+8. navigate to [http://localhost:8080/](http://localhost:8080/) to access **fastAPI**
 ## Examples:
 [http://localhost:8080/](http://localhost:8080/) executes the GET route `/` which executes read_root()`, from ./fastapi/app/main.py
 ```
