@@ -3,8 +3,8 @@ services:
   mongodb:
     image: mongo
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=adminuser
-      - MONGO_INITDB_ROOT_PASSWORD=boop
+      - MONGO_INITDB_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD
     volumes:
       - mongo-database:/data/db
     expose:
@@ -26,6 +26,11 @@ services:
       dockerfile: Dockerfile
     ports:
       - 8080:80
+    volumes:
+      - $PWD/fastapi/app:/app
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME
+      - MONGO_INITDB_ROOT_PASSWORD
     command:
       - "/start-reload.sh"
 
