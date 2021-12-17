@@ -8,7 +8,7 @@
 6. click on (or paste into your browser) the link provided in the jupyter lab log output from the terminal window to 
 access **Jupyter Lab** on [http://localhost:8888/](http://localhost:8888/)
 7. **mongodb** is not accessible externally, but can be accessed by the fastAPI or Jupyter containers at the
-URI `mongodb://useradmin:boop@mongodb`
+URI `mongodb://username:password@mongodb`
 8. navigate to [http://localhost:8080/](http://localhost:8080/) to access **fastAPI**
 ## Examples:
 [http://localhost:8080/](http://localhost:8080/) executes the GET route `/` which executes read_root()`, from ./fastapi/app/main.py
@@ -44,18 +44,22 @@ executes `find_by_parameter_id()`, from ./fastapi/app/main.py and passes in the 
     - `1000000`, an int object, as `parameter`
 
 ```
-@app.get('/mongo/tarp-data')
+@app.get("/mongo/tarp-data")
 def find_by_parameter_id(parameter: int):
-    username = urllib.parse.quote_plus('adminuser')
-    password = urllib.parse.quote_plus('boop')
+    username = urllib.parse.quote_plus(os.environ["MONGO_INITDB_ROOT_USERNAME"])
+    password = urllib.parse.quote_plus(os.environ["MONGO_INITDB_ROOT_PASSWORD"])
     mongo_host = "mongodb"
     client = MongoClient(f"mongodb://{username}:{password}@{mongo_host}")
-    db = client['tarp-data']
-    collection = db['tarp-params']
-    result = [record for record in collection.find({"parameter": parameter}, projection={"_id": False})]
+    db = client["tarp-data"]
+    collection = db["tarp-params"]
+    result = [
+        record
+        for record in collection.find(
+            {"parameter": parameter}, projection={"_id": False}
+        )
+    ]
 
-    return {"parameter": parameter,
-            "results": result}
+    return {"parameter": parameter, "results": result}
 ```
 browser result:
 ```
