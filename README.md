@@ -9,7 +9,7 @@ access **Jupyter Lab** on [http://localhost:8888/](http://localhost:8888/)
 6. **mongodb** is not accessible externally, but can be accessed by the fastAPI or Jupyter containers at the
 URI `mongodb://useradmin:boop@mongodb`
 7. navigate to [http://localhost:8080/](http://localhost:8080/) to access **fastAPI**
-##Examples:
+## Examples:
 [http://localhost:8080/](http://localhost:8080/) executes the GET route `/` which executes read_root()`, from ./fastapi/app/main.py
 ```
 @app.get("/")
