@@ -1,4 +1,4 @@
-##Basic Usage:
+## Basic Usage:
 
 1. clone repo
 2. cd into folder
@@ -38,7 +38,7 @@ item_id: 12345,
 q: "testing"
 }
 ```
-##Documentation
+## Documentation
   - Swagger Documentation is automatically created from your code
     - [http://localhost:8080/docs](http://localhost:8080/docs)
   - Alternative Documentation (Redoc)
