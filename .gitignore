@@ -6,3 +6,4 @@
 .jupyter/
 .local/
 .env
+__pycache__
