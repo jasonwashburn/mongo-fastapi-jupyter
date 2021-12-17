@@ -1,0 +1,33 @@
+version: "3.8"
+services:
+  mongodb:
+    image: mongo
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=adminuser
+      - MONGO_INITDB_ROOT_PASSWORD=boop
+    volumes:
+      - mongo-database:/data/db
+    expose:
+      - 27017
+    restart: unless-stopped
+
+  jupyterlab:
+    image: jupyter/scipy-notebook
+    environment:
+      - JUPYTER_ENABLE_LAB=yes
+    ports:
+      - 8888:8888
+    volumes:
+      - $PWD/notebooks:/home/jovyan
+
+  fastapi:
+    build:
+      context: fastapi/.
+      dockerfile: Dockerfile
+    ports:
+      - 8080:80
+    command:
+      - "/start-reload.sh"
+
+volumes:
+  mongo-database:
