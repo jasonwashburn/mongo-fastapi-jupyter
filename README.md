@@ -38,6 +38,29 @@ item_id: 12345,
 q: "testing"
 }
 ```
+http://localhost:8080/mongo/tarp-data?parameter=1000000 executes the GET route `/mongo/tarp-data` which 
+executes `find_by_parameter_id()`, from ./fastapi/app/main.py and passes in the following parameters to the function: 
+    - `1000000`, an int object, as `parameter`
+
+```
+@app.get('/mongo/tarp-data')
+def find_by_parameter_id(parameter: int):
+    username = urllib.parse.quote_plus('adminuser')
+    password = urllib.parse.quote_plus('boop')
+    mongo_host = "mongodb"
+    client = MongoClient(f"mongodb://{username}:{password}@{mongo_host}")
+    db = client['tarp-data']
+    collection = db['tarp-params']
+    result = [record for record in collection.find({"parameter": parameter}, projection={"_id": False})]
+
+    return {"parameter": parameter,
+            "results": result}
+```
+browser result:
+```
+{"parameter":1000000,"results":[{"parameter":1000000,"source":{"model":"==GLWM","run":1639742400,"forecast":3600},"name":"Temperature Air","unit":"kelvin","levels":{"2m":[270,275,280,285],"900mb":[250,240,230,220]},"time_entered":"2021-12-17T19:07:45.582000","metadata":{"edited_by":"Jason","tags":["some","tags","here"]}}]}
+```
+
 ## Documentation
   - Swagger Documentation is automatically created from your code
     - [http://localhost:8080/docs](http://localhost:8080/docs)
